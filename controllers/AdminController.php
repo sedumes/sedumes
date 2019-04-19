@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use app\models\Users;
+use app\models\Login;
 use Yii;
 use  yii\web\Session;
 //后台页面
@@ -53,5 +54,82 @@ class AdminController extends BaseController
         Yii::$app->session->set('sedumes_user','');
         Yii::$app->session->set('sedumes_name','');
         return $this->redirect('/admin/login');
+    }
+    /**
+     * 管理前台用户
+     */
+    public function actionUserlist(){
+        $login = New Login();
+        $list = $login->getData();
+        $count=count($list);
+        return $this->render('userlist',['list'=>$list,'count'=>$count]);
+    }
+
+    /**
+     * 添加用户
+     */
+    public function actionAdd(){
+        $id = Yii::$app->request->post('id');
+        $data['uname'] = Yii::$app->request->post('uname');
+        $data['phone'] = Yii::$app->request->post('phone');
+        $data['sex'] = Yii::$app->request->post('sex');
+        $data['pwd'] = Yii::$app->request->post('password');
+        $pwd_new = Yii::$app->request->post('new_password');
+
+        $data['update_time'] = date("Y-m-d H:i:s");
+        if(empty($data['phone'])){
+            $this->cookieSet(['sedumes_error','手机号不能为空！'],5);
+            return $this->redirect('/admin/userlist');
+        }
+        if($data['pwd'] != $pwd_new){
+            $this->cookieSet(['sedumes_error','两次密码不一致！'],5);
+            return $this->redirect('/admin/userlist');
+        }
+        $login = New Login();
+        $data['pwd'] = md5($data['pwd']);
+        if(!$id){
+            $data['create_time'] = date("Y-m-d H:i:s");
+            $res = $login->saveData($data);
+            if($res){
+                $this->cookieSet(['sedumes_success','添加用户成功！'],5);
+                return $this->redirect('/admin/userlist');
+            }else{
+                $this->cookieSet(['sedumes_error','添加用户失败！'],5);
+                return $this->redirect('/admin/userlist');
+            }
+        }else{
+            $login2 = Login::findOne($id);
+            foreach ($data as $k=>$v){
+                $login2->$k = $v;
+            }
+            $res2 = $login2->save();
+            if($res2){
+                $this->cookieSet(['sedumes_success','修改用户成功！'],5);
+                return $this->redirect('/admin/userlist');
+            }else{
+                $this->cookieSet(['sedumes_error','修改用户失败！'],5);
+                return $this->redirect('/admin/userlist');
+            }
+        }
+    }
+
+    /**
+     * @return \yii\web\Response
+     * 修改展示
+     */
+    public function actionSee(){
+        $data['id'] = Yii::$app->request->post('id');
+        $row = Login::find()->where($data)->one();
+        return $this->asJson($row);
+    }
+
+    /**
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * 删除信息
+     */
+    public function actionDelete(){
+        $id = Yii::$app->request->post('id');
+        Login::findOne($id)->delete();
     }
 }
