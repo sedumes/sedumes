@@ -1,20 +1,19 @@
-<?= include('head.php')?>
-<?= include('nav.php')?>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+<?php require('head.php');?>
+<?php require('nav.php');?>
             <h1 class="page-header">信息总览</h1>
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h4>文章</h4>
-                    <span class="text-muted">0 条</span> </div>
+                    <h4>大分类</h4>
+                    <span class="text-muted"><?php echo $type1?> 条</span> </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h4>评论</h4>
-                    <span class="text-muted">0 条</span> </div>
+                    <h4>小分类</h4>
+                    <span class="text-muted"><?php echo $type2?> 条</span> </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h4>友链</h4>
-                    <span class="text-muted">0 条</span> </div>
+                    <h4>音乐</h4>
+                    <span class="text-muted"><?php echo $product?> 条</span> </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h4>访问量</h4>
-                    <span class="text-muted">0</span> </div>
+                    <h4>用户</h4>
+                    <span class="text-muted"><?php echo $user?></span> </div>
             </div>
             <h1 class="page-header">状态</h1>
             <div class="table-responsive">

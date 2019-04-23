@@ -1,34 +1,13 @@
-<body class="user-select">
-<section class="container-fluid">
-    <header>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="/admin/home">sedumes</a> </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= Yii::$app->session->get('sedumes_name')?> <span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-left">
-                                <li><a title="查看或修改个人信息" data-toggle="modal" data-target="#seeUserInfo">个人信息</a></li>
-<!--                                <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>-->
-                            </ul>
-                        </li>
-                        <li><a href="<?=\yii\helpers\Url::to('/admin/logout')?>" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+
     <div class="row">
         <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
             <ul class="nav nav-sidebar nav1">
                 <li><a href="/admin/home">报告</a></li>
             </ul>
             <ul class="nav nav-sidebar nav2">
-                <li><a href="article.html">文章</a></li>
-                <li><a href="notice.html">公告</a></li>
-                <li><a href="comment.html">评论</a></li>
+                <li><a href="/type/lists">大类别</a></li>
+                <li><a href="/type/lists2">小类别</a></li>
+                <li><a href="/product/product">上传文件</a></li>
                 <li><a data-toggle="tooltip" data-placement="bottom" title="网站暂无留言功能">留言</a></li>
             </ul>
             <ul class="nav nav-sidebar nav3">
@@ -118,3 +97,16 @@
         <script>
             $('.nav1 li').addClass('active');
         </script>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+            <?php if(isset($_COOKIE['sedumes_error'])):?>
+                <div class="alert alert-error" style="background: red;">
+                    <button type="button" class="close" data-dismiss="alert" style="color: white">×</button>
+                    <font style="color: white"> <strong><?php echo $_COOKIE['sedumes_error'];?></strong></font>
+                </div>
+            <?php endif;?>
+            <?php if(isset($_COOKIE['sedumes_success'])):?>
+            <div class="alert alert-success" style="background: green;">
+                <button type="button" class="close" data-dismiss="alert" style="color: white">×</button>
+                <font style="color: white"> <strong><?php echo $_COOKIE['sedumes_success'];?></strong></font>
+            </div>
+            <?php endif;?>

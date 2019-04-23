@@ -1,6 +1,8 @@
 <?php
 
 namespace app\controllers;
+use app\models\product;
+use app\models\Types;
 use app\models\Users;
 use app\models\Login;
 use Yii;
@@ -8,7 +10,6 @@ use  yii\web\Session;
 //后台页面
 class AdminController extends BaseController
 {
-    public $layout=false;
     public $defaultAction='home';
     public function actions()
     {
@@ -31,9 +32,11 @@ class AdminController extends BaseController
                 $session->set('sedumes_name', $username);
                 return $this->redirect('/admin/home');
             }else{
+                $this->cookieSet(['sedumes_error','用户名或密码错误！'],5);
                 return $this->redirect('/admin/login');
             }
         }else{
+            $this->cookieSet(['sedumes_error','用户名或密码错误！'],5);
             return $this->redirect('/admin/login');
         }
     }
@@ -41,7 +44,11 @@ class AdminController extends BaseController
         $session = Yii::$app->session;
         $user_id = $session->get('sedumes_user');
         if($user_id){
-            return $this->render('home');
+            $type1=Types::find()->where(['>','pid',0])->count();
+            $type2=Types::find()->where(['pid'=>0])->count();
+            $user = Login::find()->count();
+            $product = product::find()->count();
+            return $this->render('home',['type1'=>$type1,'type2'=>$type2,'product'=>$product,'user'=>$user]);
         }else{
             return $this->redirect('/admin/login');
         }

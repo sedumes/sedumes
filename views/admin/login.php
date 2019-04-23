@@ -1,9 +1,15 @@
-<?php include_once 'head.php'?>
+<?php require('head.php');?>
 <link rel="stylesheet" type="text/css" href="<?= Yii::$app->request->baseUrl.'/css/login.css'?>">
 <body class="user-select">
 <div class="container">
+    <?php if(isset($_COOKIE['sedumes_error'])):?>
+        <div class="alert alert-error" style="background: red;max-width: 330px;margin: 0 auto;">
+            <button type="button" class="close" data-dismiss="alert" style="color: white">×</button>
+            <font style="color: white"> <strong><?php echo $_COOKIE['sedumes_error'];?></strong></font>
+        </div>
+    <?php endif;?>
     <div class="siteIcon">
-        <img src="<?= Yii::$app->request->baseUrl.'/images/icon/icon.png'?>" alt="" data-toggle="tooltip" data-placement="top" title="" draggable="false" data-original-title="欢迎使用sedumes管理系统">
+        <img src="<?php echo \yii\helpers\Url::to('@web/images/login_img.png', true);?>" alt="" data-toggle="tooltip" data-placement="top" title="" draggable="false" data-original-title="欢迎使用sedumes管理系统">
     </div>
     <form action="/admin/pro" method="post" autocomplete="off" class="form-signin">
         <h2 class="form-signin-heading">管理员登录</h2>

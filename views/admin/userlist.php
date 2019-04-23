@@ -1,18 +1,5 @@
-<?=include_once 'head.php';?>
-<?= include('nav.php')?>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
-            <?php if(isset($_COOKIE['sedumes_error'])):?>
-            <div class="alert alert-error" style="background: red;">
-                <button type="button" class="close" data-dismiss="alert" style="color: white">×</button>
-                <font style="color: white"> <strong><?php echo $_COOKIE['sedumes_error'];?></strong></font>
-            </div>
-            <?php endif;?>
-            <?php if(isset($_COOKIE['sedumes_success'])):?>
-            <div class="alert alert-success" style="background: green;">
-                <button type="button" class="close" data-dismiss="alert" style="color: white">×</button>
-                <font style="color: white"> <strong><?php echo $_COOKIE['sedumes_success'];?></strong></font>
-            </div>
-            <?php endif;?>
+<?php require('head.php');?>
+<?php require('nav.php');?>
             <h1 class="page-header">操作</h1>
             <ol class="breadcrumb">
                 <li><a data-toggle="modal" data-target="#addUser">增加用户</a></li>

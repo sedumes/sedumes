@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Free Bootstrap Error Template</title>
+    <title>404</title>
     <!-- Bootstrap core CSS -->
     <link href="<?= Yii::$app->request->baseUrl.'/assets/404/css/bootstrap.css'?>" rel="stylesheet">
     <!-- FONT AWESOME CSS -->
